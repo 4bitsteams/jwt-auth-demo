@@ -26,7 +26,7 @@ namespace JwtAuthDemo.Controllers
             _config = config;
         }
 
-        public IActionResult Login(String username, String pass)
+        public IActionResult Login(String username,String pass)
         {
             UserModel login = new UserModel();
             login.UserName = username;
@@ -47,14 +47,13 @@ namespace JwtAuthDemo.Controllers
         {
             UserModel user = null;
 
-            if (login.UserName == "Rubel" && login.Password == "1234")
+            if(login.UserName=="Rubel" && login.Password == "1234")
             {
-                user = new UserModel()
-                {
+                user = new UserModel() {
                     UserName = "Rubel",
                     Password = "1234",
-                    EmailAddress = "rubelislam301@gmail.com"
-
+                    EmailAddress="rubelislam301@gmail.com"
+                
                 };
             }
 
@@ -82,13 +81,14 @@ namespace JwtAuthDemo.Controllers
             return encodedtoken;
         }
 
-        [Authorize]
+         [Authorize]
         [HttpPost("Post")]
         public String Post()
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             IList<Claim> claims = identity.Claims.ToList();
-            var userName = claims[0].Value;
+            var userName = claims[1].Value;
+
             return "WelCome TO:" + userName;
         }
 
